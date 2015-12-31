@@ -1,0 +1,38 @@
+{
+  "name": "osm-p2p-xml",
+  "version": "1.0.0",
+  "description": "generate open street map xml from an osm-p2p-db query",
+  "main": "index.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "tape test/*.js"
+  },
+  "keywords": [
+    "osm",
+    "p2p",
+    "geo",
+    "xml"
+  ],
+  "author": "substack",
+  "license": "BSD",
+  "devDependencies": {
+    "fd-chunk-store": "^1.1.0",
+    "hyperlog": "^4.7.0",
+    "level": "^1.4.0",
+    "osm-p2p-db": "^2.1.0",
+    "tape": "^4.4.0"
+  },
+  "dependencies": {
+    "through2": "^2.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/substack/osm-p2p-xml.git"
+  },
+  "bugs": {
+    "url": "https://github.com/substack/osm-p2p-xml/issues"
+  },
+  "homepage": "https://github.com/substack/osm-p2p-xml#readme"
+}
