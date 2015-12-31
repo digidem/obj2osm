@@ -30,7 +30,7 @@ module.exports = function (q) {
     delete row.members
 
     Object.keys(row.tags || {}).forEach(function (key) {
-      children.push(h('tag', { k: key, v: row.tags[key] }))
+      children.push(h('tag/', { k: key, v: row.tags[key] }))
     })
     delete row.tags
 
