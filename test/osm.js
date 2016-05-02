@@ -3,7 +3,8 @@ var toxml = require('../')
 var concat = require('concat-stream')
 var parse = require('virtual-html')
 
-var expected = '<?xml version="1.0" encoding="UTF-8"?><osm>'
+var expected = '<?xml version="1.0" encoding="UTF-8"?>'
+  + '<osm version="0.6" generator="osm-p2p">'
   + '<bounds minlat="38.89958342598271" maxlat="38.90385833966776"'
     + ' minlon="-77.02514648437499" maxlon="-77.01965332031249"/>'
   + '<node lat="38.90094671136515" lon="-77.02313139881134"'
