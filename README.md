@@ -1,3 +1,6 @@
+[![Build Status](https://img.shields.io/travis/digidem/osm-p2p-xml.svg)](https://travis-ci.org/digidem/osm-p2p-xml)
+[![npm](https://img.shields.io/npm/v/osm-p2p-xml.svg?maxAge=2592000)](https://www.npmjs.com/package/osm-p2p-xml)
+
 # osm-p2p-xml
 
 generate open street map xml from an osm-p2p-db query

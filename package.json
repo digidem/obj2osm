@@ -1,6 +1,6 @@
 {
   "name": "osm-p2p-xml",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "generate open street map xml from an osm-p2p-db query",
   "main": "index.js",
   "directories": {
@@ -20,7 +20,7 @@
   "devDependencies": {
     "concat-stream": "^1.5.1",
     "tape": "^4.4.0",
-    "virtual-html": "^1.3.0"
+    "virtual-html": "^2.0.0"
   },
   "dependencies": {
     "through2": "^2.0.0"

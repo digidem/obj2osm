@@ -4,7 +4,7 @@ var through = require('through2')
 module.exports = function (q) {
   var stream = through.obj(write, end)
   stream.push(h('?xml', { version: '1.0', encoding: 'UTF-8' }, [
-    h('osm!', [
+    h('osm!', { version: '0.6', generator: 'osm-p2p' }, [
       h('bounds/', {
         minlat: q[0][0], maxlat: q[0][1],
         minlon: q[1][0], maxlon: q[1][1]
