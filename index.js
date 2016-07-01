@@ -20,7 +20,7 @@ module.exports = function (q) {
     })
     delete row.refs
 
-    Object.keys(row.members || []).forEach(function (ref) {
+    ;(row.members || []).forEach(function (ref) {
       children.push(h('member/', {
         type: 'relation',
         ref: ref,
