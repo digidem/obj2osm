@@ -12,6 +12,32 @@ var DEFAULT_MEMBER = {
   role: ''
 }
 
+// Attributes that are not in these whitelists are ignored.
+// Any node that is a child of a VALID_NODE that is not in `children` will throw an error
+var ELEMENT_ATTRIBUTES = ['id', 'user', 'uid', 'visible', 'version', 'changeset', 'timestamp', 'old_id', 'new_id', 'new_version']
+var WHITELISTS = {
+  node: {
+    attributes: ELEMENT_ATTRIBUTES.concat(['lat', 'lon']),
+    children: ['tag']
+  },
+  way: {
+    attributes: ELEMENT_ATTRIBUTES,
+    children: ['nd', 'tag']
+  },
+  relation: {
+    attributes: ELEMENT_ATTRIBUTES,
+    children: ['member', 'tag']
+  },
+  changeset: {
+    attributes: ['id', 'user', 'uid', 'created_at', 'closed_at', 'open',
+        'min_lat', 'min_lon', 'max_lat', 'max_lon', 'comments_count'],
+    children: ['tag']
+  },
+  bounds: {
+    attributes: ['minlon', 'minlat', 'maxlon', 'maxlat']
+  }
+}
+
 module.exports = function (opts) {
   opts = Object.assign({}, DEFAULTS, opts)
   if (Array.isArray(opts.bounds)) {
@@ -41,21 +67,17 @@ module.exports = function (opts) {
     ;(row.refs || []).forEach(function (ref) {
       children.push(h('nd', { ref: ref }))
     })
-    delete row.refs
 
     ;(row.members || []).forEach(function (member) {
       children.push(h('member', Object.assign({}, DEFAULT_MEMBER, member)))
     })
-    delete row.members
 
     Object.keys(row.tags || {}).forEach(function (key) {
       children.push(h('tag', { k: key, v: row.tags[key] }))
     })
-    delete row.tags
 
-    var tag = row.type
-    delete row.type
-    next(null, h(tag, row, children))
+    var attr = filterProps(row, WHITELISTS[row.type].attributes)
+    next(null, h(row.type, attr, children))
   }
 
   function end (next) {
@@ -64,4 +86,13 @@ module.exports = function (opts) {
     }
     next()
   }
+}
+
+function filterProps (obj, props) {
+  var result = {}
+  Object.keys(obj).forEach(function (prop) {
+    if (props.indexOf(prop) === -1) return
+    result[prop] = obj[prop]
+  })
+  return result
 }

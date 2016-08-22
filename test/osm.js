@@ -11,7 +11,7 @@ var expected = '<?xml version="1.0" encoding="UTF-8"?>' +
   ' timestamp="2015-12-31T20:50:35.826Z" id="1db08fd46c5a7c01"' +
   ' version="334fd5b5114e0ae69c151978640cd5692c9fb639c7565ba48b0cd2700e1d8547">' +
   '</node>' +
-  '<way v="5" timestamp="2015-12-31T20:50:35.842Z" id="29ac0c8f50e630e9"' +
+  '<way timestamp="2015-12-31T20:50:35.842Z" id="29ac0c8f50e630e9"' +
   ' version="57f9ec2913db5e568976372afa8997255fdb614cff48ca01565f2ddee3687bc8">' +
   '<nd ref="1db08fd46c5a7c01"/>' +
   '<nd ref="8c50fa92c3ce91d7"/>' +
@@ -50,7 +50,6 @@ test('query', function (t) {
   })
   stream.write({
     type: 'way',
-    v: 5,
     timestamp: '2015-12-31T20:50:35.842Z',
     id: '29ac0c8f50e630e9',
     version: '57f9ec2913db5e568976372afa8997255fdb614cff48ca01565f2ddee3687bc8',
