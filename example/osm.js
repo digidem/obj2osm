@@ -1,24 +1,15 @@
-var level = require('level')
-var hyperlog = require('hyperlog')
-var fdstore = require('fd-chunk-store')
-var db = {
-  log: level('/tmp/osm-p2p/log'),
-  index: level('/tmp/osm-p2p/index')
+var toxml = require('../')
+var from2Array = require('from2-array')
+
+var input = require('../test/fixture.json')
+
+var bounds = {
+  minlat: 38.89958342598271,
+  maxlat: 38.90385833966776,
+  minlon: -77.02514648437499,
+  maxlon: -77.01965332031249
 }
 
-var osmdb = require('osm-p2p-db')
-var osm = osmdb({
-  log: hyperlog(db.log, { valueEncoding: 'json' }),
-  db: db.index,
-  store: fdstore(4096, '/tmp/osm-p2p/tree'),
-  size: 4096
-})
-
-var toxml = require('../')
-var q = [
-  [ 38.89958342598271, 38.90385833966776 ],
-  [ -77.02514648437499, -77.01965332031249 ]
-]
-osm.queryStream(q)
-  .pipe(toxml(q))
+from2Array.obj(input)
+  .pipe(toxml({bounds: bounds}))
   .pipe(process.stdout)
