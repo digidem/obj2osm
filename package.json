@@ -1,6 +1,6 @@
 {
   "name": "osm-p2p-xml",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "generate open street map xml from an osm-p2p-db query",
   "main": "index.js",
   "directories": {
