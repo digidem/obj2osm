@@ -49,6 +49,7 @@ module.exports = function obj2Osm (opts) {
       maxlon: q[1][1]
     }
   }
+  var action = null
 
   var stream = through.obj(write, end)
 
@@ -63,6 +64,14 @@ module.exports = function obj2Osm (opts) {
   return stream
 
   function write (row, enc, next) {
+    if (action && row.action !== action) {
+      this.push('</' + action + '>')
+      action = null
+    }
+    if (row.action && !action) {
+      this.push('<' + row.action + '>')
+      action = row.action
+    }
     var children = []
     ;(row.nodes || []).forEach(function (ref) {
       children.push(h('nd', { ref: ref }))
@@ -81,6 +90,9 @@ module.exports = function obj2Osm (opts) {
   }
 
   function end (next) {
+    if (action) {
+      this.push('</' + action + '>')
+    }
     if (opts.root) {
       this.push('</' + opts.root + '>\n')
     }
