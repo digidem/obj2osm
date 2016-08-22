@@ -38,7 +38,7 @@ var WHITELISTS = {
   }
 }
 
-module.exports = function (opts) {
+module.exports = function obj2Osm (opts) {
   opts = Object.assign({}, DEFAULTS, opts)
   if (Array.isArray(opts.bounds)) {
     var q = opts.bounds

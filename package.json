@@ -1,7 +1,7 @@
 {
-  "name": "osm-p2p-xml",
-  "version": "1.0.2",
-  "description": "generate open street map xml from an osm-p2p-db query",
+  "name": "obj2osm",
+  "version": "2.0.0",
+  "description": "Generate OSM XML from a stream of OSM JSON objects",
   "main": "index.js",
   "directories": {
     "example": "example"
@@ -28,10 +28,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/substack/osm-p2p-xml.git"
+    "url": "git+https://github.com/digidem/obj2osm.git"
   },
   "bugs": {
-    "url": "https://github.com/substack/osm-p2p-xml/issues"
+    "url": "https://github.com/digidem/obj2osm/issues"
   },
-  "homepage": "https://github.com/substack/osm-p2p-xml#readme"
+  "homepage": "https://github.com/digidem/obj2osm#readme"
 }
