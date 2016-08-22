@@ -15,7 +15,7 @@ var input = [{
   timestamp: '2015-12-31T20:50:35.842Z',
   id: '29ac0c8f50e630e9',
   version: '57f9ec2913db5e568976372afa8997255fdb614cff48ca01565f2ddee3687bc8',
-  refs: ['1db08fd46c5a7c01', '8c50fa92c3ce91d7',
+  nodes: ['1db08fd46c5a7c01', '8c50fa92c3ce91d7',
     '83c1be761a9f4148', '1db08fd46c5a7c01'],
   tags: { area: 'yes' }
 }, {

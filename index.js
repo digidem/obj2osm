@@ -64,7 +64,7 @@ module.exports = function (opts) {
 
   function write (row, enc, next) {
     var children = []
-    ;(row.refs || []).forEach(function (ref) {
+    ;(row.nodes || []).forEach(function (ref) {
       children.push(h('nd', { ref: ref }))
     })
 
