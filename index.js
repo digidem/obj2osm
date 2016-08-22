@@ -17,8 +17,10 @@ module.exports = function (opts) {
   if (Array.isArray(opts.bounds)) {
     var q = opts.bounds
     opts.bounds = {
-      minlat: q[0][0], maxlat: q[0][1],
-      minlon: q[1][0], maxlon: q[1][1]
+      minlat: q[0][0],
+      maxlat: q[0][1],
+      minlon: q[1][0],
+      maxlon: q[1][1]
     }
   }
 
