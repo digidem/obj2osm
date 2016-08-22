@@ -4,7 +4,7 @@ var concat = require('concat-stream')
 var parse = require('virtual-html')
 
 var expected = '<?xml version="1.0" encoding="UTF-8"?>'
-  + '<osm version="0.6" generator="osm-p2p">'
+  + '<osm version="0.6" generator="obj2osm">'
   + '<bounds minlat="38.89958342598271" maxlat="38.90385833966776"'
     + ' minlon="-77.02514648437499" maxlon="-77.01965332031249"/>'
   + '<node lat="38.90094671136515" lon="-77.02313139881134"'
@@ -22,6 +22,7 @@ var expected = '<?xml version="1.0" encoding="UTF-8"?>'
   + '<node lat="38.90068996279713" lon="-77.02327892030715"'
     + ' timestamp="2015-12-31T20:50:35.849Z" id="8c50fa92c3ce91d7"'
     + ' version="8f32080b4501459d8a904c568e2a0c7de92de435fab8c7d16ae2b39851046991">'
+    + '<tag k="amenity" v="cafe"/>'
   + '</node>'
   + '<node lat="38.90084129844752" lon="-77.02284037913323"'
     + ' timestamp="2015-12-31T20:50:35.855Z" id="83c1be761a9f4148"'
@@ -35,10 +36,10 @@ test('query', function (t) {
     [ 38.89958342598271, 38.90385833966776 ],
     [ -77.02514648437499, -77.01965332031249 ]
   ]
-  var stream = toxml(q)
+  var stream = toxml({bounds: q})
   stream.pipe(concat(function (body) {
     t.deepEqual(parse(body.toString()), parse(expected), 'compare html tree')
-  }))
+  })).on('error', t.error)
   stream.write({
     type: 'node',
     lat: 38.90094671136515,
@@ -63,7 +64,8 @@ test('query', function (t) {
     lon: -77.02327892030715,
     timestamp: '2015-12-31T20:50:35.849Z',
     id: '8c50fa92c3ce91d7',
-    version: '8f32080b4501459d8a904c568e2a0c7de92de435fab8c7d16ae2b39851046991'
+    version: '8f32080b4501459d8a904c568e2a0c7de92de435fab8c7d16ae2b39851046991',
+    tags: { amenity: 'cafe' }
   })
   stream.write({
     type: 'node',

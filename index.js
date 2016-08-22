@@ -1,27 +1,42 @@
 var h = require('./lib/h.js')
 var through = require('through2')
 
-module.exports = function (q) {
+var DEFAULTS = {
+  root: 'osm',
+  generator: 'obj2osm'
+}
+
+module.exports = function (opts) {
+  opts = Object.assign({}, DEFAULTS, opts)
+  if (Array.isArray(opts.bounds)) {
+    var q = opts.bounds
+    opts.bounds = {
+      minlat: q[0][0], maxlat: q[0][1],
+      minlon: q[1][0], maxlon: q[1][1]
+    }
+  }
+
   var stream = through.obj(write, end)
-  stream.push(h('?xml', { version: '1.0', encoding: 'UTF-8' }, [
-    h('osm!', { version: '0.6', generator: 'osm-p2p' }, [
-      h('bounds/', {
-        minlat: q[0][0], maxlat: q[0][1],
-        minlon: q[1][0], maxlon: q[1][1]
-      })
-    ])
-  ]))
+
+  if (opts.root) {
+    stream.push(h('?xml', { version: '1.0', encoding: 'UTF-8' }))
+    stream.push(h(opts.root + '!', { version: '0.6', generator: opts.generator }))
+  }
+  if (opts.bounds) {
+    stream.push(h('bounds', opts.bounds))
+  }
+
   return stream
 
   function write (row, enc, next) {
     var children = []
     ;(row.refs || []).forEach(function (ref) {
-      children.push(h('nd/', { ref: ref }))
+      children.push(h('nd', { ref: ref }))
     })
     delete row.refs
 
     ;(row.members || []).forEach(function (ref) {
-      children.push(h('member/', {
+      children.push(h('member', {
         type: 'relation',
         ref: ref,
         role: ''
@@ -30,7 +45,7 @@ module.exports = function (q) {
     delete row.members
 
     Object.keys(row.tags || {}).forEach(function (key) {
-      children.push(h('tag/', { k: key, v: row.tags[key] }))
+      children.push(h('tag', { k: key, v: row.tags[key] }))
     })
     delete row.tags
 
@@ -38,8 +53,11 @@ module.exports = function (q) {
     delete row.type
     next(null, h(tag, row, children))
   }
+
   function end (next) {
-    this.push('</osm>\n')
+    if (opts.root) {
+      this.push('</' + opts.root + '>\n')
+    }
     next()
   }
 }
