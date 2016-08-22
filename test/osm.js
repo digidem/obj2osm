@@ -24,10 +24,10 @@ var expected = '<?xml version="1.0" encoding="UTF-8"?>'
     + ' version="8f32080b4501459d8a904c568e2a0c7de92de435fab8c7d16ae2b39851046991">'
     + '<tag k="amenity" v="cafe"/>'
   + '</node>'
-  + '<node lat="38.90084129844752" lon="-77.02284037913323"'
-    + ' timestamp="2015-12-31T20:50:35.855Z" id="83c1be761a9f4148"'
+  + '<relation timestamp="2015-12-31T20:50:35.855Z" id="83c1be761a9f4148"'
     + ' version="0443c3916e92250149c8086ed21b2265cb6af161dbf63a17e30a7d3c8a0cb0b1">'
-    + '</node>'
+    + '<member ref="8c50fa92c3ce91d7" type="node" role=""/>'
+    + '</relation>'
   + '</osm>'
 
 test('query', function (t) {
@@ -68,12 +68,11 @@ test('query', function (t) {
     tags: { amenity: 'cafe' }
   })
   stream.write({
-    type: 'node',
-    lat: 38.90084129844752,
-    lon: -77.02284037913323,
+    type: 'relation',
     timestamp: '2015-12-31T20:50:35.855Z',
     id: '83c1be761a9f4148',
-    version: '0443c3916e92250149c8086ed21b2265cb6af161dbf63a17e30a7d3c8a0cb0b1'
+    version: '0443c3916e92250149c8086ed21b2265cb6af161dbf63a17e30a7d3c8a0cb0b1',
+    members: [{ref: '8c50fa92c3ce91d7', type: 'node', role: ''}]
   })
   stream.end()
 })

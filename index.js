@@ -6,6 +6,12 @@ var DEFAULTS = {
   generator: 'obj2osm'
 }
 
+var DEFAULT_MEMBER = {
+  ref: '',
+  type: '',
+  role: ''
+}
+
 module.exports = function (opts) {
   opts = Object.assign({}, DEFAULTS, opts)
   if (Array.isArray(opts.bounds)) {
@@ -35,12 +41,8 @@ module.exports = function (opts) {
     })
     delete row.refs
 
-    ;(row.members || []).forEach(function (ref) {
-      children.push(h('member', {
-        type: 'relation',
-        ref: ref,
-        role: ''
-      }))
+    ;(row.members || []).forEach(function (member) {
+      children.push(h('member', Object.assign({}, DEFAULT_MEMBER, member)))
     })
     delete row.members
 
