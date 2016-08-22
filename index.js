@@ -73,7 +73,7 @@ module.exports = function obj2Osm (opts) {
       action = row.action
     }
     var children = []
-    ;(row.nodes || []).forEach(function (ref) {
+    ;(row.nodes || row.refs || []).forEach(function (ref) {
       children.push(h('nd', { ref: ref }))
     })
 
