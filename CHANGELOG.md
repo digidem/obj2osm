@@ -20,4 +20,5 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Optional bounds
 - Optional custom generator attribute
 
+[2.0.1]: https://github.com/digidem/obj2osm/compare/v2.0.1...v2.0.0
 [2.0.0]: https://github.com/digidem/obj2osm/compare/v2.0.0...v1.0.2
