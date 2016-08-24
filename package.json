@@ -1,6 +1,6 @@
 {
   "name": "obj2osm",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Generate OSM XML from a stream of OSM JSON objects",
   "main": "index.js",
   "directories": {
