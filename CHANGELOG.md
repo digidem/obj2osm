@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.0.1] - 2016-08-24
+### Fixed
+- Skip objects with an invalid `type` property (not one of `node|way|relation|bounds|changeset`)
+
 ## [2.0.0] - 2016-08-22
 ### Changed
 - Renamed from osm-p2p-xml to obj2osm

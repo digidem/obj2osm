@@ -64,6 +64,9 @@ module.exports = function obj2Osm (opts) {
   return stream
 
   function write (row, enc, next) {
+    if (Object.keys(WHITELISTS).indexOf(row.type) === -1) {
+      return next()
+    }
     if (action && row.action !== action) {
       this.push('</' + action + '>')
       action = null
