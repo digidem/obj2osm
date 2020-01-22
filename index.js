@@ -16,6 +16,10 @@ var DEFAULT_MEMBER = {
 // Any node that is a child of a VALID_NODE that is not in `children` will throw an error
 var ELEMENT_ATTRIBUTES = ['id', 'user', 'uid', 'visible', 'version', 'changeset', 'timestamp', 'old_id', 'new_id', 'new_version']
 var WHITELISTS = {
+  observation: {
+    attributes: ELEMENT_ATTRIBUTES.concat(['lat', 'lon']),
+    children: ['tag']
+  },
   node: {
     attributes: ELEMENT_ATTRIBUTES.concat(['lat', 'lon']),
     children: ['tag']
@@ -89,7 +93,12 @@ module.exports = function obj2Osm (opts) {
     })
 
     var attr = filterProps(row, WHITELISTS[row.type].attributes)
-    next(null, h(row.type, attr, children))
+    var nodeName = row.type
+    if (row.type === 'observation') {
+      nodeName = 'node'
+      children.push(h('tag', { k: '__mapeo_type', v: 'observation' }))
+    }
+    next(null, h(nodeName, attr, children))
   }
 
   function end (next) {
