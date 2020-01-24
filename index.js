@@ -93,11 +93,7 @@ module.exports = function obj2Osm (opts) {
     })
 
     var attr = filterProps(row, WHITELISTS[row.type].attributes)
-    var nodeName = row.type
-    if (row.type === 'observation') {
-      nodeName = 'node'
-      children.push(h('tag', { k: '__mapeo_type', v: 'observation' }))
-    }
+    var nodeName = row.type === 'observation' ? 'node' : row.type
     next(null, h(nodeName, attr, children))
   }
 
